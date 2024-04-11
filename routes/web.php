@@ -20,6 +20,11 @@ Route::get('/jobs/create', function () {
 
 Route::post('/jobs', function () {
 
+    request()->validate([
+        'title' => 'required|string|max:255|alpha:ascii',
+        'salary' => 'required|string|min:1|max:10|regex:/^\$.*$/',
+    ]);
+
     Job::create([
         'title' => request('title'),
         'salary' => request('salary'),
